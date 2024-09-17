@@ -1,10 +1,8 @@
 
 "use client"
-import { useEffect, useState } from "react"
-
-
-
-
+import React from "react";
+import { useEffect, useState } from "react";
+import '../global.css';
 function page() {
   const [skillsData,setSkillsData]=useState([]);
 
@@ -23,10 +21,10 @@ useEffect(()=>{
     questions();
 },[])
   return (
-    <div>
+    <div >
       hello world!!!
       <div>
-        {skillsData.map((array,index)=>(<h1>{array.name}</h1> ))}
+        {skillsData.map((array,index)=>(<h1 key={index} className="text-blue-600 ">{array.name}</h1> ))}
         
       </div>
     </div>
