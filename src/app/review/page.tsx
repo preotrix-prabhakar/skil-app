@@ -13,8 +13,8 @@ function page() {
       try {
         const response = await fetch('./data/questions.json');
         const result = await response.json();
-        // console.log(result.data);
-        // console.log(currentSkillIndex,currentCategoryIndex);
+        console.log(result.data);
+        console.log(currentSkillIndex,currentCategoryIndex);
         setSkillsData(result.data);
       } catch (error) {
         console.log({ error });
@@ -35,8 +35,7 @@ function page() {
         setCurrentCategoryIndex(currentCategoryIndex + 1);
         setCurrentSkillIndex(0);
       } }
-  
-  const currentCategory = skillsData[currentCategoryIndex];
+      
   const handlePrevious = () => {
     
     if (currentSkillIndex > 0) {
@@ -48,6 +47,9 @@ function page() {
     }
   }
   
+  const currentCategory = skillsData[currentCategoryIndex];
+  const currentSkill = currentCategory && currentCategory.skills ? currentCategory.skills[currentSkillIndex] : null;
+
   
   return (
     <div >
@@ -62,8 +64,26 @@ function page() {
             </h1>
             {console.log(currentCategoryIndex,currentSkillIndex)}
             <p>and current skill is:</p>
-            {currentCategory.skills[currentSkillIndex].name}
-            <p> {currentCategory.skills[currentSkillIndex].description}</p>
+            {currentSkill.name}
+            <p> {currentSkill.description}</p>
+
+            <table className="w-full mt-5 border-2 border-black bg-gray-100">
+              <thead>
+              <tr>
+                <th className="text-left">Level</th>
+                <th className="text-left">Description</th>
+              </tr>
+              </thead>
+              <tbody>
+                {currentSkill.skill_levels.map((level)=>(
+                  <tr className="border-2 border-black">
+                    <td  className="p-4 "> {level.skill_level_mark}</td>
+                    <td>{level.skill_level_description} </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            
           </div>
 
 
