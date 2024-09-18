@@ -5,13 +5,15 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 
-function page() {
+ function page() {
   const [skillsData, setSkillsData] = useState([]);
   const [currentCategoryIndex, setCurrentCategoryIndex] = useState(0);
   const [currentSkillIndex, setCurrentSkillIndex] = useState(0);
   const [isEditing, setIsEditing] = useState(false);
+  const [editableLevels, setEditableLevels] = useState([]);
 
   useEffect(() => {
+
     const questions = async () => {
 
       try {
@@ -57,6 +59,7 @@ function page() {
   };
   const handleEditClick = () => {
     setIsEditing(true);
+    setEditableLevels([...currentSkill.skill_levels]);
     toast.info("You can now edit the skills.");
   };
   
@@ -89,12 +92,23 @@ function page() {
                 </tr>
               </thead>
               <tbody>
-                {currentSkill.skill_levels.map((level) => (
-                  <tr className="border-2 border-black">
-                    <td className="p-4 "> {level.skill_level_mark}</td>
-                    <td>{level.skill_level_description} </td>
+                {(isEditing ? editableLevels: currentSkill.skill_levels).map((level,index)=>(
+                  <tr key={index}  className="border-black border-2">
+                  <td className="p-4">{level.skill_level_mark}</td>
+                  <td>
+                    {isEditing ? (
+                      <input type="text"
+                      className="w-full"
+                      value={level.skill_level_description}
+                       />
+                    ):
+                    (level.skill_level_description
+
+                    ) }
+                  </td>
                   </tr>
                 ))}
+                
               </tbody>
             </table>
 
@@ -105,12 +119,16 @@ function page() {
 
 
         <button className="bg-gray-600 mr-5" onClick={handlePrevious} >previous</button>
-        <button className="bg-red-600" onClick={handleNext} >Next</button>
+        <button className="bg-red-600 m-5" onClick={handleNext} >Next</button>
         <button className="bg-green-600 mr-5" onClick={handleLooksGood}>Looks Good to Me</button>
-        <button className="bg-red-600" onClick={handleEditClick}>Suggest Edits</button>
+        {isEditing ? (
+              <button className="bg-blue-600" >Save Changes</button>
+            ) : (
+              <button className="bg-red-600" onClick={handleEditClick}>Suggest Edits</button>
+            )}
       </div>
     </div>
   )
 }
 
-export default page
+export default page;
