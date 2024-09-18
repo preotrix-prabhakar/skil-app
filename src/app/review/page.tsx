@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-function page() {
+function Page() {
   const [skillsData, setSkillsData] = useState([]);
   const [currentCategoryIndex, setCurrentCategoryIndex] = useState(0);
   const [currentSkillIndex, setCurrentSkillIndex] = useState(0);
@@ -163,4 +163,4 @@ function page() {
   );
 }
 
-export default page;
+export default Page;
