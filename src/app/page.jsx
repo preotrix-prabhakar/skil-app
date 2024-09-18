@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import styles from "./page.module.css";
 import { useRouter } from "next/navigation";
 
 export default function Home(){
@@ -12,10 +11,10 @@ export default function Home(){
   };
 
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        this is the home page!!
-        <button onClick={handleNavigation}>Go to Review Page</button>
+    <div >
+      <main >
+     <p className="text-xl text-red-500 m-4">this is the home page!!</p>   
+        <button onClick={handleNavigation} className="border-2 border-black bg-green-600 p-2 m-4 ">Go to Review Page</button>
       </main>
     </div>
   );
