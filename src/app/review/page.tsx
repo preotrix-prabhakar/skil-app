@@ -63,6 +63,13 @@ import 'react-toastify/dist/ReactToastify.css';
     toast.info("You can now edit the skills.");
   };
   
+  const handleInputChange=(index:number,value:string,field:string)=>{
+    const updatedLevels=[...editableLevels];
+    updatedLevels[index][field]=value;
+    setEditableLevels(updatedLevels);
+    
+    console.log(index,value);
+  }
   const currentCategory = skillsData[currentCategoryIndex];
   const currentSkill = currentCategory && currentCategory.skills ? currentCategory.skills[currentSkillIndex] : null;
 
@@ -92,14 +99,20 @@ import 'react-toastify/dist/ReactToastify.css';
                 </tr>
               </thead>
               <tbody>
-                {(isEditing ? editableLevels: currentSkill.skill_levels).map((level,index)=>(
+                {(isEditing ? editableLevels: currentSkill.skill_levels).map((level,index:number)=>(
                   <tr key={index}  className="border-black border-2">
-                  <td className="p-4">{level.skill_level_mark}</td>
+                  <td className="p-4">{isEditing ? (
+                    <input type="text" value={level.skill_level_mark}
+                  onChange={(e)=>handleInputChange(index,e.target.value,"skill_level_mark")}
+                   />):(
+                    level.skill_level_mark
+                   )}</td>
                   <td>
                     {isEditing ? (
                       <input type="text"
                       className="w-full"
                       value={level.skill_level_description}
+                      onChange={(e)=>handleInputChange(index,e.target.value,"skill_level_description")}
                        />
                     ):
                     (level.skill_level_description
